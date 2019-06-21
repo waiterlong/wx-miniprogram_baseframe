@@ -1,0 +1,35 @@
+<!--pages/completed/completed.wxml-->
+<wux-panel title="" style="postion:fixed">
+  <wux-row>
+    <wux-col span="18">
+      <wux-input style="display:block;margin-top:0.5em;" value="{{ searchInput.searchName }}" data-name="searchInput.searchName" catch:change="handleInput" title="搜索" placeholder="任务名" />
+    </wux-col>
+    <wux-col span="6">
+      <wux-button type="success" size="small" catch:tap="handleButtonTap">确定</wux-button>
+    </wux-col>
+  </wux-row>
+  <wux-row>
+    <picker
+    value="{{statePicker.selectIndex}}"
+    bindchange="bindPickerChange"
+    range="{{statePicker.selectArr}}"
+    >
+      <wux-input  value="{{statePicker.selectArr[statePicker.selectIndex]}}" title="任务状态" disabled placeholder="点击选择" />
+    </picker>
+  </wux-row>
+</wux-panel>
+<wux-cell-group>
+  <view wx:for="{{tasks}}" wx:key="id">
+    <view wx:if="{{(role==ROLE.AUDITOR && item.taskState==TASK_STATUS.AUDITING) || (item.taskState==TASK_STATUS.EXPERT_EVALUATING && role==ROLE.EXPERT) || (role==ROLE.STAFF && item.taskState==TASK_STATUS.TASK_DOING) || (role==ROLE.AUDITOR && item.taskState==TASK_STATUS.EVALUATING) || (role==ROLE.STAFF && item.taskState==TASK_STATUS.COMMIT_REJECTED) || (role==ROLE.PROPOSER && item.taskState==TASK_STATUS.ISSUE_REJECTED) || (role==ROLE.PROPOSER && item.taskState==TASK_STATUS.WAIT_ACCEPT)}}" style="position:absolute;right:6%;margin-top:1%;">
+      <wux-badge dot wux-class="BadgeClass"></wux-badge>
+    </view>
+    <wux-cell title="{{item.taskName}}" is-link url="../taskdetail/taskdetail?taskId={{item.id}}&role={{role}}" value="{{item.taskState}}" >
+      <view class="cell-desc" role="" aria-label="">
+        <view>发布时间：{{item.creatTime}}</view>
+        <br/>
+        <view>发布人：{{item.proposerVo.userVo.name}}</view>
+      </view>
+    </wux-cell>
+  </view>
+</wux-cell-group>
+<i-load-more wx:if="{{loadMore.show}}" tip="{{loadMore.text}}" loading="{{loadMore.loading}}" />

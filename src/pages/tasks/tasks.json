@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+        "wux-cell-group": "../../components/wuxui/cell-group/index",
+        "wux-cell": "../../components/wuxui/cell/index",
+        "wux-row": "../../components/wuxui/row/index",
+        "wux-col": "../../components/wuxui/col/index",
+        "wux-button": "../../components/wuxui/button/index",
+        "wux-input": "../../components/wuxui/input/index",
+        "wux-badge": "../../components/wuxui/badge/index",
+        "i-load-more": "../../components/iviewui/load-more/index",
+        "wux-sticky": "../../components/wuxui/sticky/index",
+        "wux-sticky-item": "../../components/wuxui/sticky-item/index"
+  }
+}

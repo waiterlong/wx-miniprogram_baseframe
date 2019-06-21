@@ -1,0 +1,7 @@
+src/components/wuxui/*
+src/components/iviewui/*
+src/utils/bidirectionalBind.js
+src/utils/date_util.js
+src/utils/pinyinUtil.js
+src/utils/watcher.js
+src/utils/WxValidate.js
