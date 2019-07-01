@@ -14,6 +14,9 @@ const lessFiles = [
   `!${srcPath}/assets/styles/**/*.less`,
   `!${srcPath}/_template/*.less`
 ];
+const wxssFiles = [
+  `${srcPath}/*.wxss`,
+];
 const jsonFiles = [`${srcPath}/*.json`, `!${srcPath}/_template/*.json`];
 const jsFiles = [`${srcPath}/*.js`, `!${srcPath}/_template/*.js`, `!${srcPath}/env/*.js`];
 const imgFiles = [
@@ -80,6 +83,15 @@ const wxss = () => {
 };
 gulp.task(wxss);
 
+
+/* wxss文件直译 */
+const wxss2wxss = () => {
+  return gulp
+    .src(wxssFiles)
+    .pipe(gulp.dest(distPath));
+};
+gulp.task(wxss2wxss);
+
 /* 编译压缩图片 */
 const img = () => {
   return gulp
@@ -104,20 +116,20 @@ gulp.task('watch', () => {
 /* build */
 gulp.task('build', gulp.series(
   // 'clean',
-  gulp.parallel( 'wxml', 'js', 'json', 'wxss', 'img', 'prodEnv'))
+  gulp.parallel( 'wxml', 'js', 'json', 'wxss', 'wxss2wxss', 'img', 'prodEnv'))
 );
 
 /* dev */
 gulp.task('dev', gulp.series(
   // 'clean',
-  gulp.parallel( 'wxml', 'js', 'json', 'wxss', 'img', 'devEnv'),
+  gulp.parallel( 'wxml', 'js', 'json', 'wxss', 'wxss2wxss', 'img', 'devEnv'),
   'watch')
 );
 
 /* test */
 gulp.task('test', gulp.series(
   // 'clean',
-  gulp.parallel( 'wxml', 'js', 'json', 'wxss', 'img', 'testEnv'))
+  gulp.parallel( 'wxml', 'js', 'json', 'wxss', 'wxss2wxss', 'img', 'testEnv'))
 );
 
 /**
